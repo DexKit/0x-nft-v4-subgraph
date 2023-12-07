@@ -40,7 +40,7 @@ For any network supported by the protocol,
 
 ```bash
 
-source .env; yarn codegen; yarn build --network <network>; yarn deploy --product hosted-service dexkit/0x-exchange-proxy-v4 --access-token $ACCESS_TOKEN
+source .env; yarn codegen; yarn build --network <network>; yarn deploy --product hosted-service dexkit/0x-nft-v4 --access-token $ACCESS_TOKEN
 
 ```
 
@@ -50,7 +50,7 @@ For instance, for Ethereum network:
 
 ```bash
 
-source .env; yarn codegen; yarn build --network mainnet; yarn deploy --product hosted-service dexkit/0x-exchange-proxy-v4--access-token $ACCESS_TOKEN
+source .env; yarn codegen; yarn build --network mainnet; yarn deploy --product hosted-service dexkit/0x-nft-v4 --access-token $ACCESS_TOKEN
 
 ```
 
