@@ -112,7 +112,6 @@ type ERC721OrderFill @entity {
   tradeDirection: TradeDirection!
   timestamp: BigInt!
   blockNumber: BigInt!
-  orderHash: Bytes!
   taker: Taker!
   maker: Maker!
   erc20Token: Token!
@@ -128,7 +127,6 @@ type ERC1155OrderFill @entity {
   tradeDirection: TradeDirection!
   timestamp: BigInt!
   blockNumber: BigInt!
-  orderHash: Bytes!
   taker: Taker!
   maker: Maker!
   erc20Token: Token!

@@ -30,9 +30,13 @@ export function handleERC721OrderFilled(event: ERC721OrderFilled): void {
     nftFill.blockNumber = tx.blockNumber;
     nftFill.erc20Token = erc20Token.id;
     nftFill.erc721Token = erc721Token.id;
+    nftFill.maker = maker.id;
+    nftFill.taker = taker.id;
     nftFill.erc20TokenAmount = event.params.erc20TokenAmount;
     nftFill.tradeDirection = event.params.direction == 0 ? 'Buy' : 'Sell';
     nftFill.nonce = event.params.nonce;
+
+
     nftFill.save();
 
     {
@@ -61,11 +65,14 @@ export function handleERC1155OrderFilled(event: ERC1155OrderFilled): void {
     nftFill.timestamp = tx.timestamp;
     nftFill.blockNumber = tx.blockNumber;
     nftFill.erc20Token = erc20Token.id;
+    nftFill.maker = maker.id;
+    nftFill.taker = taker.id;
     nftFill.erc20TokenAmount = event.params.erc20FillAmount;
     nftFill.erc1155TokenAmount = event.params.erc1155FillAmount;
     nftFill.erc1155Token = erc1155Token.id;
     nftFill.tradeDirection = event.params.direction == 0 ? 'Buy' : 'Sell';
     nftFill.nonce = event.params.nonce;
+
     nftFill.save();
 
     {

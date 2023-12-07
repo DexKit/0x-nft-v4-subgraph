@@ -11,6 +11,12 @@
       "startBlock": 11565019
     }
   },
+  "mumbai": {
+    "ExchangeProxy": {
+      "address": "0xf471d32cb40837bf24529fcf17418fc1a4807626",
+      "startBlock": 27476722
+    }
+  },
   "optimism": {
     "ExchangeProxy": {
       "address": "0xdef1abe32c034e558cdd535791643c58a13acc10",

@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ExchangeProxy
-    network: optimism
+    network: celo
     source:
       abi: IZeroEx
-      address: "0xdef1abe32c034e558cdd535791643c58a13acc10"
-      startBlock: 11565019
+      address: "0xdef1c0ded9bec7f1a1670819833240f027b25eff"
+      startBlock: 9350111
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -54,19 +54,35 @@ source .env; yarn codegen; yarn build --network mainnet; yarn deploy --product h
 
 ```
 
-# Subgraph Deployments (TODO)
+# Subgraph Deployments (In Progress)
 
 ## Mainnet
 
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-eth
+
 ## Optimism
+
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-op
 
 ## BSC
 
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-bsc
+
+## Mumbai
+
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-mumbai
+
 ## Polygon
+
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-poly
 
 ## Fantom
 
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-fantom
+
 ## Avalanche
+
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-avax
 
 ## Base
 

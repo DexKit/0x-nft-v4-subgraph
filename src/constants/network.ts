@@ -11,6 +11,7 @@ namespace Network {
     export const BASE = "base";
     export const CELO = "celo";
     export const ARBITRUM_ONE = "arbitrum-one";
+    export const MUMBAI = "mumbai"
     // used for not supported networks
     export const NOT_SUPPORTED = "not_supported_network";
 }
@@ -25,6 +26,7 @@ WETH_ADDRESS.set(Network.POLYGON, Address.fromString("0x0d500b1d8e8ef31e21c99d1d
 WETH_ADDRESS.set(Network.AVALANCHE, Address.fromString("0xdb6f1920a889355780af7570773609bd8cb1f498"));
 WETH_ADDRESS.set(Network.BASE, Address.fromString("0x22f9dcf4647084d6c31b2765f6910cd85c178c18"));
 WETH_ADDRESS.set(Network.ARBITRUM_ONE, Address.fromString("0x4200000000000000000000000000000000000006"));
+WETH_ADDRESS.set(Network.MUMBAI, Address.fromString("0x9c3c9283d3e44854697cd22d3faa240cfb032889"));
 WETH_ADDRESS.set(Network.NOT_SUPPORTED, ZERO_ADDRESS);
 
 
