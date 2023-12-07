@@ -1,0 +1,62 @@
+{
+  "mainnet": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 11565019
+    }
+  },
+  "goerli": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 11565019
+    }
+  },
+  "optimism": {
+    "ExchangeProxy": {
+      "address": "0xdef1abe32c034e558cdd535791643c58a13acc10",
+      "startBlock": 11565019
+    }
+  },
+  "bsc": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 5375047
+    }
+  },
+  "matic": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 14391480
+    }
+  },
+  "fantom": {
+    "ExchangeProxy": {
+      "address": "0xdef189deaef76e379df891899eb5a00a94cbc250",
+      "startBlock": 18855765
+    }
+  },
+  "avalanche": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 3389125
+    }
+  },
+  "arbitrum-one": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 4050713
+    }
+  },
+  "base": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 1410360
+    }
+  },
+  "celo": {
+    "ExchangeProxy": {
+      "address": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+      "startBlock": 9350111
+    }
+  }
+}

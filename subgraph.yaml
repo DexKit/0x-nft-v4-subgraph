@@ -1,0 +1,46 @@
+specVersion: 0.0.5
+description: 0x ExchangeProxy V4
+repository: https://github.com/DexKit/0x-exchange-proxy-v4-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ExchangeProxy
+    network: optimism
+    source:
+      abi: IZeroEx
+      address: "0xdef1abe32c034e558cdd535791643c58a13acc10"
+      startBlock: 11565019
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Token
+        - Fill
+        - Taker
+        - NativeOrderFill
+        - ERC721OrderFill
+        - ERC71155OrderFill
+      abis:
+        - name: IZeroEx
+          file: ./abis/IZeroEx.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+        - name: IERC721Metadata
+          file: ./abis/IERC721Metadata.json
+        - name: ERC1155
+          file: ./abis/ERC1155Mintable.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+      eventHandlers:
+        - event: LimitOrderFilled(bytes32,address,address,address,address,address,uint128,uint128,uint128,uint256,bytes32)
+          handler: handleLimitOrderFilledEvent
+        - event: ERC721OrderFilled(uint8,address,address,uint256,address,uint256,address,uint256,address)
+          handler: handleERC721OrderFilled
+        - event: ERC1155OrderFilled(uint8,address,address,uint256,address,uint256,address,uint256,uint128,address)
+          handler: handleERC1155OrderFilled
+      file: ./src/mappings/exchange-proxy.ts
