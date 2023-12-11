@@ -4,6 +4,9 @@ enum NativeOrderType {
 
 enum TokenType {
   ERC20
+}
+
+enum NFTType {
   ERC721
   ERC1155
 }
@@ -26,15 +29,34 @@ type Transaction @entity {
 
 type Token @entity {
   # token address
+  id: ID!
+  symbol: String!
+  decimals: BigInt!
+  limitOrderVolume: BigInt!
+  erc721Volume: BigInt!
+  erc1155Volume: BigInt!
+  type: TokenType!
+}
+
+type NFT @entity {
+  # token address
   # In case of NFTs: tokenAddress-id
   id: ID!
   nftId: BigInt
   tokenURI: String
   collection: Collection
   symbol: String!
-  decimals: BigInt!
-  limitOrderVolume: BigInt!
-  type: TokenType!
+  type: NFTType!
+  fillCount: BigInt!
+  tokenVolume: [NFTVolume!]! @derivedFrom(field: "nft")
+}
+
+type NFTVolume @entity {
+  id: ID!
+  nft: NFT!
+  token: Token!
+  volume: BigInt!
+  fillCount: BigInt!
 }
 
 type Collection @entity {
@@ -42,8 +64,18 @@ type Collection @entity {
   id: ID!
   name: String
   symbol: String!
-  type: TokenType!
-  nfts: [Token!]! @derivedFrom(field: "collection")
+  type: NFTType!
+  fillCount: BigInt!
+  nfts: [NFT!]! @derivedFrom(field: "collection")
+  tokenVolume: [CollectionVolume!]! @derivedFrom(field: "collection")
+}
+
+type CollectionVolume @entity {
+  id: ID!
+  collection: Collection!
+  token: Token!
+  volume: BigInt!
+  fillCount: BigInt!
 }
 
 type Taker @entity {

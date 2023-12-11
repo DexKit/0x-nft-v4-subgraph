@@ -3,7 +3,7 @@ import { ERC20 } from '../../generated/ExchangeProxy/ERC20';
 import { ERC20SymbolBytes } from '../../generated/ExchangeProxy/ERC20SymbolBytes';
 import { IERC721Metadata } from '../../generated/ExchangeProxy/IERC721Metadata';
 
-import { Collection, Fill, Maker, Taker, Token, Transaction } from '../../generated/schema';
+import { Collection, CollectionVolume, Fill, Maker, NFT, NFTVolume, Taker, Token, Transaction } from '../../generated/schema';
 import { GET_WETH_ADDRESS } from '../constants/network';
 
 
@@ -120,34 +120,41 @@ export function tokenFindOrCreate(address: Address): Token {
         token.symbol = fetchTokenSymbol(address);
         token.decimals = fetchTokenDecimals(address);
         token.limitOrderVolume = BigInt.fromI32(0);
+        token.erc1155Volume = BigInt.fromI32(0);
+        token.erc721Volume = BigInt.fromI32(0);
         token.type = 'ERC20';
         token.save();
     }
     return token!;
 }
 
-export function nftFindOrCreate(address: Address, nftId: BigInt, isERC1155: boolean): Token {
-    let token = Token.load(`${normalizeTokenAddress(address).toHexString()}-${nftId.toString()}`);
+export function nftFindOrCreate(address: Address, nftId: BigInt, isERC1155: boolean): NFT {
+    let token = NFT.load(`${normalizeTokenAddress(address).toHexString()}-${nftId.toString()}`);
     if (!token) {
-        token = new Token(`${normalizeTokenAddress(address).toHexString()}-${nftId.toString()}`);
-        let collection = Collection.load(normalizeTokenAddress(address).toHexString());
-        if (!collection) {
-            collection = new Collection(normalizeTokenAddress(address).toHexString());
-            collection.symbol = fetchTokenSymbol(address);
-            collection.type = isERC1155 ? 'ERC1155' : 'ERC721';
-            collection.name = fetchNftName(address);
-            collection.save();
-        }
+        token = new NFT(`${normalizeTokenAddress(address).toHexString()}-${nftId.toString()}`);
+        let collection = collectionFindOrCreate(address, isERC1155)
         token.nftId = nftId;
         token.collection = collection.id;
         token.symbol = fetchTokenSymbol(address);
-        token.decimals = fetchTokenDecimals(address);
-        token.limitOrderVolume = BigInt.fromI32(0);
+        token.fillCount = BigInt.fromI32(0);
         token.tokenURI = fetchNftURI(address, nftId);
         token.type = isERC1155 ? 'ERC1155' : 'ERC721';
         token.save();
     }
     return token!;
+}
+
+export function collectionFindOrCreate(address: Address, isERC1155: boolean): Collection {
+    let collection = Collection.load(normalizeTokenAddress(address).toHexString());
+    if (!collection) {
+        collection = new Collection(normalizeTokenAddress(address).toHexString());
+        collection.symbol = fetchTokenSymbol(address);
+        collection.type = isERC1155 ? 'ERC1155' : 'ERC721';
+        collection.fillCount = BigInt.fromI32(0);
+        collection.name = fetchNftName(address);
+        collection.save();
+    }
+    return collection!;
 }
 
 export function takerFindOrCreate(address: Address): Taker {
@@ -161,6 +168,32 @@ export function takerFindOrCreate(address: Address): Taker {
         taker.save();
     }
     return taker!;
+}
+
+export function nftVolumeFindOrCreate(token: Token, nft: NFT): NFTVolume {
+    let nftVolume = NFTVolume.load(token.id + '-' + nft.id);
+    if (!nftVolume) {
+        nftVolume = new NFTVolume(token.id + '-' + nft.id);
+        nftVolume.token = token.id;
+        nftVolume.nft = nft.id;
+        nftVolume.volume = BigInt.fromI32(0);
+        nftVolume.fillCount = BigInt.fromI32(0);
+        nftVolume.save();
+    }
+    return nftVolume!;
+}
+
+export function collectionVolumeFindOrCreate(token: Token, collection: Collection): CollectionVolume {
+    let collectionVolume = CollectionVolume.load(token.id + '-' + collection.id);
+    if (!collectionVolume) {
+        collectionVolume = new CollectionVolume(token.id + '-' + collection.id);
+        collectionVolume.token = token.id;
+        collectionVolume.collection = collection.id;
+        collectionVolume.volume = BigInt.fromI32(0);
+        collectionVolume.fillCount = BigInt.fromI32(0);
+        collectionVolume.save();
+    }
+    return collectionVolume!;
 }
 
 export function makerFindOrCreate(address: Address): Maker {

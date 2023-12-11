@@ -9,6 +9,10 @@ Features
 - ERC721 NFT fills
 - ERC1155 NFT fills
 - Limit order fills
+- Collection volume
+- Collection volume per token
+- NFT volume
+- NFT volume per token
 
 # Getting Started
 
@@ -50,7 +54,7 @@ For instance, for Ethereum network:
 
 ```bash
 
-source .env; yarn codegen; yarn build --network mainnet; yarn deploy --product hosted-service dexkit/0x-nft-v4 --access-token $ACCESS_TOKEN
+source .env; yarn codegen; yarn build --network mainnet; yarn deploy --product hosted-service dexkit/0x-nft-v4-eth --access-token $ACCESS_TOKEN
 
 ```
 
@@ -90,13 +94,13 @@ Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v
 
 ## Adding a new Network
 
-To add a new network to this graph, fill in networks.json with the respective exchange proxy address and start blocks. Next, in src/constants/network, add the network to the namespace and fill in addresses for WETH, EXCHANGE_PROXY, FLASH_WALLET, SANDBOX, and FACTORIES if applicable.
+To add a new network to this graph, fill in networks.json with the respective exchange proxy address and start blocks. Next, in src/constants/network, add the network to the namespace and fill in addresses for WETH.
 
 Use as source these up-to-date list of [addresses](https://github.com/0xProject/protocol/blob/development/packages/contract-addresses/addresses.json)
 
 ## TODO
 
-- Deployments
+- Deployments on the Graph decentralized network
 - More documentation
 
 # References

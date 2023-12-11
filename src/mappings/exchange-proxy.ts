@@ -7,8 +7,11 @@ import {
 import { ERC1155OrderFill, ERC721OrderFill, Fill, NativeOrderFill } from '../../generated/schema';
 
 import {
+    collectionFindOrCreate,
+    collectionVolumeFindOrCreate,
     makerFindOrCreate,
     nftFindOrCreate,
+    nftVolumeFindOrCreate,
     takerFindOrCreate,
     tokenFindOrCreate,
     transactionFindOrCreate,
@@ -22,7 +25,9 @@ export function handleERC721OrderFilled(event: ERC721OrderFilled): void {
 
     let erc20Token = tokenFindOrCreate(event.params.erc20Token);
     let erc721Token = nftFindOrCreate(event.params.erc721Token, event.params.erc721TokenId, false);
-
+    let collection = collectionFindOrCreate(event.params.erc721Token, false);
+    let collectionVolume = collectionVolumeFindOrCreate(erc20Token, collection);
+    let nftVolume = nftVolumeFindOrCreate(erc20Token, erc721Token);
 
     let nftFill = new ERC721OrderFill(tx.id + '-' + event.logIndex.toString());
     nftFill.transaction = tx.id;
@@ -35,8 +40,6 @@ export function handleERC721OrderFilled(event: ERC721OrderFilled): void {
     nftFill.erc20TokenAmount = event.params.erc20TokenAmount;
     nftFill.tradeDirection = event.params.direction == 0 ? 'Buy' : 'Sell';
     nftFill.nonce = event.params.nonce;
-
-
     nftFill.save();
 
     {
@@ -48,6 +51,31 @@ export function handleERC721OrderFilled(event: ERC721OrderFilled): void {
     {
         tx.save();
     }
+    {
+        erc20Token.erc721Volume = erc20Token.erc721Volume.plus(event.params.erc20TokenAmount)
+        erc20Token.save()
+    }
+    {
+        erc721Token.fillCount = erc721Token.fillCount.plus(BigInt.fromI32(1));
+        erc721Token.save()
+    }
+    {
+        collection.fillCount = collection.fillCount.plus(BigInt.fromI32(1));
+        collection.save()
+    }
+    {
+        collectionVolume.fillCount = collectionVolume.fillCount.plus(BigInt.fromI32(1));
+        collectionVolume.volume = collectionVolume.volume.plus(event.params.erc20TokenAmount)
+        collectionVolume.save()
+    }
+
+    {
+        nftVolume.fillCount = nftVolume.fillCount.plus(BigInt.fromI32(1));
+        nftVolume.volume = nftVolume.volume.plus(event.params.erc20TokenAmount)
+        nftVolume.save()
+    }
+
+
 }
 
 export function handleERC1155OrderFilled(event: ERC1155OrderFilled): void {
@@ -58,6 +86,9 @@ export function handleERC1155OrderFilled(event: ERC1155OrderFilled): void {
 
     let erc20Token = tokenFindOrCreate(event.params.erc20Token);
     let erc1155Token = nftFindOrCreate(event.params.erc1155Token, event.params.erc1155TokenId, true);
+    let collection = collectionFindOrCreate(event.params.erc1155Token, true);
+    let collectionVolume = collectionVolumeFindOrCreate(erc20Token, collection);
+    let nftVolume = nftVolumeFindOrCreate(erc20Token, erc1155Token);
 
 
     let nftFill = new ERC1155OrderFill(tx.id + '-' + event.logIndex.toString());
@@ -84,6 +115,32 @@ export function handleERC1155OrderFilled(event: ERC1155OrderFilled): void {
     {
         tx.save();
     }
+
+    {
+        erc20Token.erc721Volume = erc20Token.erc721Volume.plus(event.params.erc20FillAmount)
+        erc20Token.save()
+    }
+    {
+        erc1155Token.fillCount = erc1155Token.fillCount.plus(BigInt.fromI32(1));
+        erc1155Token.save()
+    }
+    {
+        collection.fillCount = collection.fillCount.plus(BigInt.fromI32(1));
+        collection.save()
+    }
+    {
+        collectionVolume.fillCount = collectionVolume.fillCount.plus(BigInt.fromI32(1));
+        collectionVolume.volume = collectionVolume.volume.plus(event.params.erc20FillAmount)
+        collectionVolume.save()
+    }
+
+    {
+        nftVolume.fillCount = nftVolume.fillCount.plus(BigInt.fromI32(1));
+        nftVolume.volume = nftVolume.volume.plus(event.params.erc20FillAmount)
+        nftVolume.save()
+    }
+
+
 }
 
 export function handleLimitOrderFilledEvent(event: LimitOrderFilled): void {
