@@ -68,6 +68,10 @@ Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v
 
 Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-op
 
+## Arbitrum
+
+Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-arb
+
 ## BSC
 
 Hosted service endpoint: https://api.thegraph.com/subgraphs/name/dexkit/0x-nft-v4-bsc
