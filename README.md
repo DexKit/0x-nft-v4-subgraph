@@ -1,8 +1,8 @@
-# 0x NFT V4 Subgraph (In Progress)
+# 0x NFT V4 Subgraph
 
-This is a community-run subgraph for the 0x Exchange proxy with aim of supporting all current networks from the 0x protocol. At its current state, it aims to support the following networks: ETH, Optimism, BSC, Polygon, Arbitrum, Fantom, Avalanche, Base, and Celo.
+This is a community-run subgraph for the 0x Exchange proxy with aim of supporting all current networks from the 0x protocol with focus on nft and limit order trading. At its current state, it aims to support the following networks: ETH, Optimism, BSC, Polygon, Arbitrum, Fantom, Avalanche, Base, and Celo.
 
-This is a fork from [https://github.com/0xProject/ep-subgraph] with focus on nft and limit order trading.
+This is a fork from [https://github.com/0xProject/ep-subgraph] .
 
 Features
 
